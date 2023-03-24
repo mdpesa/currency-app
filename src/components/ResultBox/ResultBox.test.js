@@ -36,4 +36,16 @@ describe('Component ResultBox', () => {
       expect(output).toHaveTextContent(testObj.expected);
     });
   cleanup();
+
+  it('should render proper info about conversion when the same currency', () => {
+    render(<ResultBox from='PLN' to='PLN' amount={100} />);
+    const output = screen.getByTestId('output');
+    expect(output).toHaveTextContent('PLN 100.00 = PLN 100.00');
+  });
+
+  it('should render proper info about conversion when negative amount', () => {
+    render(<ResultBox from='PLN' to='USD' amount={-100} />);
+    const output = screen.getByTestId('output');
+    expect(output).toHaveTextContent('Wrong value...');
+  });
 });
